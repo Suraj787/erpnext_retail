@@ -1,0 +1,50 @@
+{
+ "creation": "2019-09-18 00:12:01.926114",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "barcode_printer_name",
+  "default_selling_price_list",
+  "default_purchase_price_list"
+ ],
+ "fields": [
+  {
+   "fieldname": "barcode_printer_name",
+   "fieldtype": "Data",
+   "label": "Barcode Printer Name"
+  },
+  {
+   "fieldname": "default_selling_price_list",
+   "fieldtype": "Data",
+   "label": "Default Selling Price List"
+  },
+  {
+   "fieldname": "default_purchase_price_list",
+   "fieldtype": "Data",
+   "label": "Default Purchase Price List"
+  }
+ ],
+ "issingle": 1,
+ "modified": "2019-09-18 00:12:01.926114",
+ "modified_by": "Administrator",
+ "module": "Erpnext Retail",
+ "name": "Retail Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

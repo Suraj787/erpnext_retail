@@ -1,0 +1,5 @@
+{
+	"erpnext_retail/js/erpnext_retail.js": [
+		"public/js/customer_quick_entry_custom.js"	
+	]
+}

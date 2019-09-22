@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include erpnext_retail *.css
+recursive-include erpnext_retail *.csv
+recursive-include erpnext_retail *.html
+recursive-include erpnext_retail *.ico
+recursive-include erpnext_retail *.js
+recursive-include erpnext_retail *.json
+recursive-include erpnext_retail *.md
+recursive-include erpnext_retail *.png
+recursive-include erpnext_retail *.py
+recursive-include erpnext_retail *.svg
+recursive-include erpnext_retail *.txt
+recursive-exclude erpnext_retail *.pyc

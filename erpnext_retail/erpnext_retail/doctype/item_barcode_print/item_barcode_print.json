@@ -1,0 +1,69 @@
+{
+ "autoname": "BARPRINT.#####",
+ "creation": "2019-09-17 19:19:58.564252",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "items",
+  "amended_from",
+  "total_items"
+ ],
+ "fields": [
+  {
+   "fieldname": "items",
+   "fieldtype": "Table",
+   "label": "Items",
+   "options": "Barcode Print Items",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Item Barcode Print",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company",
+   "read_only": 1,
+   "set_only_once": 1
+  },
+  {
+   "fieldname": "total_items",
+   "fieldtype": "Int",
+   "hidden": 1,
+   "label": "Total Items"
+  }
+ ],
+ "is_submittable": 1,
+ "modified": "2019-09-21 18:54:21.246195",
+ "modified_by": "Administrator",
+ "module": "Erpnext Retail",
+ "name": "Item Barcode Print",
+ "owner": "palash@techlift.in",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
