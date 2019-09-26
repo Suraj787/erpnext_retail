@@ -76,7 +76,7 @@ function get_final_item_values(d, company) {
 }
 
 function create_item_edit_table(purchase_rate, item_attribute_values, html_wrapper) {
-	html_wrapper.html('<table id="items_edit" style="width:100%"><col width=30%><col width=25%><col width=25%><col width=20%><thead><tr><th>Size</th><th style="text-align:right">Pr. Rate</th><th style="text-align:right">Sell Rate</th><th style="text-align:right">Qty</th></tr></thead><tbody id="items_edit_body"></tbody></table>')
+	html_wrapper.html('<table id="items_edit" style="width:100%"><col width=30%><col width=25%><col width=25%><col width=20%><thead><tr><th>Attribute</th><th style="text-align:right">Pr. Rate</th><th style="text-align:right">Sell Rate</th><th style="text-align:right">Qty</th></tr></thead><tbody id="items_edit_body"></tbody></table>')
 	var items_edit_table = $('#items_edit_body')[0]
 	if (items_edit_table) {
 		var option_string = ''
