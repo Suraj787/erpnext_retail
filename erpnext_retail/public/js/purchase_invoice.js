@@ -321,10 +321,10 @@ function correct_item_taxes(frm) {
 		var row = item
 		var item_group_lowercase = row.item_group.toLocaleLowerCase()
 
-		if(item_group_lowercase.indexOf('saree') != -1) {
+		/*if(item_group_lowercase.indexOf('saree') != -1) {
 			frappe.model.set_value(row.doctype, row.name, "item_tax_template", '')
 			continue
-		}
+		}*/
 
 		if (row.rate > 1000 && !bypass_gst_comparition) {
 			var supplier_gst_location = supplier_gstin.substr(0, 2)
