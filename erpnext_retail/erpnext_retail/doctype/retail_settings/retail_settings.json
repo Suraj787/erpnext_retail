@@ -6,7 +6,8 @@
  "field_order": [
   "barcode_printer_name",
   "default_selling_price_list",
-  "default_purchase_price_list"
+  "enable_price_based_tax_template_rule",
+  "section_break_4"
  ],
  "fields": [
   {
@@ -16,17 +17,26 @@
   },
   {
    "fieldname": "default_selling_price_list",
-   "fieldtype": "Data",
-   "label": "Default Selling Price List"
+   "fieldtype": "Link",
+   "label": "Default Selling Price List",
+   "options": "Price List"
   },
   {
-   "fieldname": "default_purchase_price_list",
-   "fieldtype": "Data",
-   "label": "Default Purchase Price List"
+   "default": "0",
+   "fieldname": "enable_price_based_tax_template_rule",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "label": "Enable Price Based Tax Template Rule",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.enable_price_based_tax_template_rule",
+   "fieldname": "section_break_4",
+   "fieldtype": "Section Break"
   }
  ],
  "issingle": 1,
- "modified": "2019-09-18 00:12:01.926114",
+ "modified": "2019-09-25 22:02:41.719783",
  "modified_by": "Administrator",
  "module": "Erpnext Retail",
  "name": "Retail Settings",
