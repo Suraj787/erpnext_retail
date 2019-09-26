@@ -1,6 +1,5 @@
 import frappe
 from erpnext.controllers.item_variant import enqueue_multiple_variant_creation
-from remote_pdb import set_trace
 import json
 from six import string_types
 
