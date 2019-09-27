@@ -128,6 +128,7 @@ def add_items(doc, item_attribute, company, item_price_array, item_name, item_gr
 				pi_item.item_group = item_doc.item_group
 				pi_item.item_code = item_doc.name
 				pi_item.uom = item_doc.stock_uom
+				pi_item.received_qty = item_details['qty']
 				pi_item.qty = item_details['qty']
 				pi_item.rate = item_details['rate']
 				pi_item_price = frappe.get_doc({
