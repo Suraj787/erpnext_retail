@@ -100,7 +100,7 @@ function create_item_edit_table(purchase_rate, item_attribute_values, html_wrapp
 			var col = row.insertCell(-1)
 			col.innerHTML = `<input type="number" autocomplete="off" class="input-with-feedback form-control bold" data-fieldtype="Currency" data-fieldname="mrp_rate" placeholder="" style="text-align:right" value=${sell_rate}>`
 			var col = row.insertCell(-1)
-			col.innerHTML = `<input type="number" autocomplete="off" class="input-with-feedback form-control bold" data-fieldtype="Currency" data-fieldname="qty" placeholder="" style="text-align:right" value=1>`
+			col.innerHTML = `<input type="number" autocomplete="off" class="input-with-feedback form-control bold" data-fieldtype="Currency" data-fieldname="qty" placeholder="" style="text-align:right" value=0>`
 		}
 	}
 }
@@ -284,7 +284,6 @@ frappe.ui.form.on('Purchase Invoice', {
 					.then(function () {
 						frappe.dom.freeze('Loading Please Wait')
 						cur_frm.set_value('company', company)
-						cur_frm.set_value('total_items', pi_items.length)
 
 						if (cur_frm.doc.items.length > 0) {
 							while (cur_frm.doc.items.length > 0) {
@@ -295,11 +294,15 @@ frappe.ui.form.on('Purchase Invoice', {
 						cur_frm.refresh_field('items')
 
 						for (var pi_item of pi_items) {
+							if(pi_item.item_group == 'TRANSPORT EXP') {
+								continue
+							}
 							var child_table = frappe.model.add_child(cur_frm.doc, "Barcode Print Items", "items")
 							frappe.model.set_value(child_table.doctype, child_table.name, 'item', pi_item.item_code)
 							frappe.model.set_value(child_table.doctype, child_table.name, 'number_of_print', pi_item.received_qty)
 						}
 
+						cur_frm.set_value('total_items', cur_frm.doc.items.length)
 						cur_frm.refresh_field('items')
 					})
 			})
