@@ -8,6 +8,31 @@ def chunk(l, n):
         for i in range(0, len(l), n):
                 yield l[i:i+n]
 
+def add_item_barcode(item_code):
+    item = frappe.get_doc('Item', item_code)
+    item_code_split = item.name.split("STOITEM")
+
+    if(len(item_code_split) != 2):
+        return
+
+    barcode_digit = item_code_split[1]
+    barcode_exist = False
+
+    for barcode in item.barcodes:
+        if barcode_digit == barcode.barcode:
+            barcode_exist = True
+            break
+
+    if not barcode_exist:
+        barcode = item.append('barcodes', {})
+        barcode.barcode = barcode_digit
+        barcode.barcode_type = ""
+        barcode.barcode_print = barcode_digit
+        barcode.save()
+        item.save()
+
+        #frappe.db.commit()
+
 
 @frappe.whitelist()
 def add_items(doc, item_attribute, company, item_price_array, item_name,
@@ -120,6 +145,7 @@ def add_items(doc, item_attribute, company, item_price_array, item_name,
 
                 if doc:
                         for item in items:
+                                add_item_barcode(item.name)
                                 item_doc = frappe.get_doc('Item', item.name)
 
                                 attr = ''
