@@ -124,7 +124,7 @@ function create_numerical_sizes(d) {
 		frappe.msgprint('Enter Increment in Proper format')
 	}
 
-	if (!price_jump || Number(price_jump) == NaN) {
+	if ((!price_jump && price_jump != 0) || Number(price_jump) == NaN) {
 		frappe.msgprint('Enter Price Jump in Proper format')
 	}
 
@@ -276,7 +276,7 @@ frappe.ui.form.on('Purchase Invoice', {
 			})
 		}
 
-		if (frm.doc.docstatus == 1) {
+		if (frm.doc.docstatus == 1 || frm.doc.docstatus == 2) {
 			frm.add_custom_button('Print Barcodes', function () {
 				var pi_items = frm.doc.items
 				var company = frm.doc.company
