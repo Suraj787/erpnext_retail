@@ -331,7 +331,7 @@ function correct_item_taxes(frm) {
 			}
 		}
 
-		if (row.rate > 1000 && !bypass_gst_comparition) {
+		if ((row.rate > 1000) && !bypass_gst_comparition) {
 			var supplier_gst_location = supplier_gstin.substr(0, 2)
 			var our_gst_location = place_of_supply.substr(0, 2)
 
@@ -361,4 +361,10 @@ function correct_item_taxes(frm) {
 
 frappe.ui.form.on('Purchase Invoice Item', "rate", function (frm, cdt, cdn) {
 	correct_item_taxes(frm)
+})
+
+frappe.ui.form.on('Purchase Invoice', "refresh", function (frm) {
+    if(frm.doc.is_return == 1){
+        correct_item_taxes(frm)
+    }
 })
