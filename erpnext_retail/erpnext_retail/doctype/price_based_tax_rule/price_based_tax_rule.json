@@ -1,0 +1,44 @@
+{
+ "actions": [],
+ "creation": "2020-01-08 17:32:36.783608",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "from_price",
+  "to_price",
+  "tax_category"
+ ],
+ "fields": [
+  {
+   "fieldname": "from_price",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "From Price"
+  },
+  {
+   "fieldname": "to_price",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "To Price"
+  },
+  {
+   "fieldname": "tax_category",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tax Category"
+  }
+ ],
+ "istable": 1,
+ "links": [],
+ "modified": "2020-01-08 17:33:35.173387",
+ "modified_by": "Administrator",
+ "module": "Erpnext Retail",
+ "name": "Price Based Tax Rule",
+ "owner": "Administrator",
+ "permissions": [],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}

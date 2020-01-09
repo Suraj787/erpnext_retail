@@ -1,0 +1,83 @@
+{
+ "actions": [],
+ "creation": "2020-01-08 17:25:10.076427",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "company",
+  "item",
+  "item_group",
+  "column_break_3",
+  "for",
+  "section_break_6",
+  "rule"
+ ],
+ "fields": [
+  {
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "label": "Company",
+   "options": "Company"
+  },
+  {
+   "fieldname": "for",
+   "fieldtype": "Select",
+   "label": "For",
+   "options": "\nAll\nItem Group\nItem"
+  },
+  {
+   "depends_on": "eval:doc.for=='Item Group'",
+   "fieldname": "item_group",
+   "fieldtype": "Link",
+   "label": "Item Group",
+   "options": "Item Group"
+  },
+  {
+   "depends_on": "eval:doc.for=='Item'",
+   "fieldname": "item",
+   "fieldtype": "Link",
+   "label": "Item",
+   "options": "Item"
+  },
+  {
+   "fieldname": "column_break_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_6",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "rule",
+   "fieldtype": "Table",
+   "label": "Rule",
+   "options": "Price Based Tax Rule"
+  }
+ ],
+ "links": [],
+ "modified": "2020-01-08 17:34:58.620225",
+ "modified_by": "Administrator",
+ "module": "Erpnext Retail",
+ "name": "Price Based Tax Category Selection",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "quick_entry": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_views": 1
+}
