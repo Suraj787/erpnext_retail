@@ -25,7 +25,7 @@ def calculate_correct_taxes(doc, method):
             continue
 
         # Trying for All
-        corrected_tax = correct_tax_template('Selling', 'All', company)
+        corrected_tax = correct_tax_template('Selling', 'All', company, rate)
         if corrected_tax:
             sales_item.item_tax_template = corrected_tax
 
