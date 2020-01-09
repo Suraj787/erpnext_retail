@@ -29,7 +29,7 @@ page_js = {"point-of-sale": "public/js/point_of_sale.js"}
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
 doctype_js = {
-	"Purchase Invoice": "public/js/purchase_invoice.js"
+        "Purchase Invoice": "public/js/purchase_invoice.js"
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -82,7 +82,11 @@ doctype_js = {
 # Document Events
 # ---------------
 # Hook on document methods and events
-
+doc_events = {
+    "Sales Invoice": {
+                "before_submit": "erpnext_retail.sales_invoice.sales_invoice_extend.calculate_correct_taxes",
+    }
+}
 # doc_events = {
 # 	"*": {
 # 		"on_update": "method",
@@ -130,4 +134,3 @@ doctype_js = {
 # override_doctype_dashboards = {
 # 	"Task": "erpnext_retail.task.get_dashboard_data"
 # }
-

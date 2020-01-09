@@ -1,5 +1,4 @@
 {
- "actions": [],
  "creation": "2020-01-08 17:32:36.783608",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -7,7 +6,8 @@
  "field_order": [
   "from_price",
   "to_price",
-  "tax_category"
+  "place",
+  "tax_template"
  ],
  "fields": [
   {
@@ -23,15 +23,22 @@
    "label": "To Price"
   },
   {
-   "fieldname": "tax_category",
-   "fieldtype": "Data",
+   "fieldname": "tax_template",
+   "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Tax Category"
+   "label": "Tax Template",
+   "options": "Item Tax Template"
+  },
+  {
+   "fieldname": "place",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Place",
+   "options": "Instate\nOutstate"
   }
  ],
  "istable": 1,
- "links": [],
- "modified": "2020-01-08 17:33:35.173387",
+ "modified": "2020-01-09 10:03:07.850668",
  "modified_by": "Administrator",
  "module": "Erpnext Retail",
  "name": "Price Based Tax Rule",

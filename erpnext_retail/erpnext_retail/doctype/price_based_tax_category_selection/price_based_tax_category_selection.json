@@ -1,11 +1,12 @@
 {
- "actions": [],
+ "autoname": "format:{company}-{transaction}-{for}-{item_group}-{item}",
  "creation": "2020-01-08 17:25:10.076427",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "company",
+  "transaction",
   "item",
   "item_group",
   "column_break_3",
@@ -17,14 +18,18 @@
   {
    "fieldname": "company",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Company",
-   "options": "Company"
+   "options": "Company",
+   "reqd": 1
   },
   {
    "fieldname": "for",
    "fieldtype": "Select",
+   "in_list_view": 1,
    "label": "For",
-   "options": "\nAll\nItem Group\nItem"
+   "options": "All\nItem Group\nItem",
+   "reqd": 1
   },
   {
    "depends_on": "eval:doc.for=='Item Group'",
@@ -52,11 +57,20 @@
    "fieldname": "rule",
    "fieldtype": "Table",
    "label": "Rule",
-   "options": "Price Based Tax Rule"
+   "options": "Price Based Tax Rule",
+   "reqd": 1
+  },
+  {
+   "default": "Selling",
+   "fieldname": "transaction",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Transaction",
+   "options": "Buying\nSelling",
+   "reqd": 1
   }
  ],
- "links": [],
- "modified": "2020-01-08 17:34:58.620225",
+ "modified": "2020-01-09 11:17:15.495123",
  "modified_by": "Administrator",
  "module": "Erpnext Retail",
  "name": "Price Based Tax Category Selection",
