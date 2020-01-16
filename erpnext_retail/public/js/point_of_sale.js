@@ -1,3 +1,5 @@
+/* global Payment, __, frappe */
+
 class PointOfSaleNew extends erpnext.pos.PointOfSale{
     make() {
         return frappe.run_serially([
@@ -183,7 +185,7 @@ class PaymentNew extends Payment{
                     self.dialog.set_value("sales_commission", sales_person_object.commission_rate);
                 }
             }).catch(function(error){
-            })
+            });
         }
     }
 
