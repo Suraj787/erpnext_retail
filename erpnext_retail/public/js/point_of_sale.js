@@ -33,7 +33,7 @@ class PaymentNew extends Payment{
     get_fields() {
         const me = this;
 
-        let fields = this.frm.doc.payments.map(p => {
+        let fields = this.frm.doc.payments.map((p) => {
             return {
                 fieldtype: "Currency",
                 label: __(p.mode_of_payment),
@@ -218,4 +218,4 @@ class PaymentNew extends Payment{
 	}
 }
 
-Payment = PaymentNew
+Payment = PaymentNew;
