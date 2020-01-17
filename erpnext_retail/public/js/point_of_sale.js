@@ -176,7 +176,6 @@ class PaymentNew extends Payment{
 
     update_commission_rate(){
         const sales_person = this.dialog.get_value("sales_person");
-        const commission = this.dialog.get_value("sales_commission");
         var self = this;
         if(sales_person){
             var sales_person_object = frappe.db.get_doc("Sales Person", sales_person)
@@ -201,7 +200,11 @@ class PaymentNew extends Payment{
             frappe.model.set_value(child_table.doctype, child_table.name, "sales_person", sales_person);
             frappe.model.set_value(child_table.doctype, child_table.name, "allocated_percentage", 100);
             frappe.model.set_value(child_table.doctype, child_table.name, "commission_rate", commission_rate);
+            console.log('hi');
             this.frm.refresh_field("sales_team");
+            this.dialog.set_value("sales_commission", "");
+            this.dialog.set_value("sales_person", "");
+            this.dialog.refresh();
         }
     }
 
