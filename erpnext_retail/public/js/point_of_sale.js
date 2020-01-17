@@ -218,4 +218,5 @@ class PaymentNew extends Payment{
 	}
 }
 
+
 Payment = PaymentNew;
