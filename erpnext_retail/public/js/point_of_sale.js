@@ -1,4 +1,4 @@
-/* global Payment, __, frappe */
+/* global Payment, __ */
 
 class PointOfSaleNew extends erpnext.pos.PointOfSale{
     make() {
@@ -178,18 +178,17 @@ class PaymentNew extends Payment{
         const sales_person = this.dialog.get_value("sales_person");
         var self = this;
         if(sales_person){
-            var sales_person_object = frappe.db.get_doc("Sales Person", sales_person)
-            .then(function(sales_person_object){
-                if(sales_person_object){
-                    self.dialog.set_value("sales_commission", sales_person_object.commission_rate);
-                }
-            }).catch(function(error){
-            });
+            frappe.db.get_doc("Sales Person", sales_person)
+                .then(function(sales_person_object){
+                    if(sales_person_object){
+                        self.dialog.set_value("sales_commission", sales_person_object.commission_rate);
+                    }
+                }).catch(function(error){
+                });
         }
     }
 
     update_sales_man(){
-        var sales_persons = this.frm.doc.sales_team;
         this.frm.doc.sales_team = [];
         this.frm.refresh_field("sales_team");
 
@@ -210,12 +209,12 @@ class PaymentNew extends Payment{
     set_primary_action() {
         var me = this;
 
-		this.dialog.set_primary_action(__("Submit"), function() {
-			me.dialog.hide();
+        this.dialog.set_primary_action(__("Submit"), function() {
+            me.dialog.hide();
             me.update_sales_man();
-			me.events.submit_form();
-		});
-	}
+            me.events.submit_form();
+        });
+    }
 }
 
 Payment = PaymentNew;
