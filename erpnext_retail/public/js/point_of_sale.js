@@ -200,7 +200,6 @@ class PaymentNew extends Payment{
             frappe.model.set_value(child_table.doctype, child_table.name, "sales_person", sales_person);
             frappe.model.set_value(child_table.doctype, child_table.name, "allocated_percentage", 100);
             frappe.model.set_value(child_table.doctype, child_table.name, "commission_rate", commission_rate);
-            console.log('hi');
             this.frm.refresh_field("sales_team");
             this.dialog.set_value("sales_commission", "");
             this.dialog.set_value("sales_person", "");
