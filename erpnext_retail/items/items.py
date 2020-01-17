@@ -117,7 +117,7 @@ def add_items(doc, item_attribute, company, item_price_array, item_name,
                         "article": article,
                         "brand": brand,
                         "gst_hsn_code": hsn,
-                        "has_variant": 1,
+                        "has_variants": 1,
                         "variant_based_on": 'Item Attribute',
                         "attributes": template_attributes
                 })
