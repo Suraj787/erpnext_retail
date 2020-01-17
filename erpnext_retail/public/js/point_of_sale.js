@@ -182,7 +182,7 @@ class PaymentNew extends Payment{
                         self.dialog.set_value("sales_commission", sales_person_object.commission_rate);
                     }
                 }).catch(function(error){
-                    frappe.msgprint(error)
+                    frappe.msgprint(error);
                 });
         }
     }
