@@ -211,7 +211,7 @@ function open_item_helper(frm) {
 							d.clear()
 							$('#items_edit').remove()
 						}
-						correct_item_taxes(frm)
+						// correct_item_taxes(frm)
 						d.clear_message()
 
 					})
@@ -310,61 +310,61 @@ frappe.ui.form.on('Purchase Invoice', {
 	}
 })
 
-function correct_item_taxes(frm) {
-	var place_of_supply = frm.doc.place_of_supply
-	var supplier_gstin = frm.doc.supplier_gstin
-	var bypass_gst_comparition = false
-	var company = frm.doc.company
+// function correct_item_taxes(frm) {
+// 	var place_of_supply = frm.doc.place_of_supply
+// 	var supplier_gstin = frm.doc.supplier_gstin
+// 	var bypass_gst_comparition = false
+// 	var company = frm.doc.company
 
-	if ((!place_of_supply) || (!supplier_gstin)) {
-		bypass_gst_comparition = true
-	}
+// 	if ((!place_of_supply) || (!supplier_gstin)) {
+// 		bypass_gst_comparition = true
+// 	}
 
-	for (var item of frm.doc.items) {
-		var row = item
+// 	for (var item of frm.doc.items) {
+// 		var row = item
 
-		if(row.item_group){
-			var item_group_lowercase = row.item_group.toLocaleLowerCase()
-			if(item_group_lowercase.indexOf('saree') != -1) {
-				frappe.model.set_value(row.doctype, row.name, "item_tax_template", '')
-				continue
-			}
-		}
+// 		if(row.item_group){
+// 			var item_group_lowercase = row.item_group.toLocaleLowerCase()
+// 			if(item_group_lowercase.indexOf('saree') != -1) {
+// 				frappe.model.set_value(row.doctype, row.name, "item_tax_template", '')
+// 				continue
+// 			}
+// 		}
 
-		if ((row.rate > 1000) && !bypass_gst_comparition) {
-			var supplier_gst_location = supplier_gstin.substr(0, 2)
-			var our_gst_location = place_of_supply.substr(0, 2)
+// 		if ((row.rate > 1000) && !bypass_gst_comparition) {
+// 			var supplier_gst_location = supplier_gstin.substr(0, 2)
+// 			var our_gst_location = place_of_supply.substr(0, 2)
 
-			var is_inter_state = 0
+// 			var is_inter_state = 0
 
-			if (supplier_gst_location != our_gst_location) {
-				is_inter_state = 1
-			}
+// 			if (supplier_gst_location != our_gst_location) {
+// 				is_inter_state = 1
+// 			}
 
-			if (is_inter_state == 1) {
-				var item_tax_template = (company == 'Kothari Collections') ? "Out GST 12% - KC" : "Out GST 12% - KG"
-				frappe.model.set_value(row.doctype, row.name, "item_tax_template", item_tax_template)
-			} else {
-				var item_tax_template = (company == 'Kothari Collections') ? "In GST 12% - KC" : "In GST 12% - KG"
-				frappe.model.set_value(row.doctype, row.name, "item_tax_template", item_tax_template)
-			}
-		} else {
-			if (row.rate > 1000) {
-				var item_tax_template = (company == 'Kothari Collections') ? "In GST 12% - KC" : "In GST 12% - KG"
-				frappe.model.set_value(row.doctype, row.name, "item_tax_template", item_tax_template)
-			} else {
-				frappe.model.set_value(row.doctype, row.name, "item_tax_template", '')
-			}
-		}
-	}
-}
+// 			if (is_inter_state == 1) {
+// 				var item_tax_template = (company == 'Kothari Collections') ? "Out GST 12% - KC" : "Out GST 12% - KG"
+// 				frappe.model.set_value(row.doctype, row.name, "item_tax_template", item_tax_template)
+// 			} else {
+// 				var item_tax_template = (company == 'Kothari Collections') ? "In GST 12% - KC" : "In GST 12% - KG"
+// 				frappe.model.set_value(row.doctype, row.name, "item_tax_template", item_tax_template)
+// 			}
+// 		} else {
+// 			if (row.rate > 1000) {
+// 				var item_tax_template = (company == 'Kothari Collections') ? "In GST 12% - KC" : "In GST 12% - KG"
+// 				frappe.model.set_value(row.doctype, row.name, "item_tax_template", item_tax_template)
+// 			} else {
+// 				frappe.model.set_value(row.doctype, row.name, "item_tax_template", '')
+// 			}
+// 		}
+// 	}
+// }
 
-frappe.ui.form.on('Purchase Invoice Item', "rate", function (frm, cdt, cdn) {
-	correct_item_taxes(frm)
-})
+// frappe.ui.form.on('Purchase Invoice Item', "rate", function (frm, cdt, cdn) {
+// 	correct_item_taxes(frm)
+// })
 
-frappe.ui.form.on('Purchase Invoice', "refresh", function (frm) {
-    if(frm.doc.is_return == 1){
-        correct_item_taxes(frm)
-    }
-})
+// frappe.ui.form.on('Purchase Invoice', "refresh", function (frm) {
+//     if(frm.doc.is_return == 1){
+//         correct_item_taxes(frm)
+//     }
+// })
