@@ -10,7 +10,7 @@
   "item",
   "item_group",
   "column_break_3",
-  "for",
+  "for_item",
   "section_break_6",
   "rule"
  ],
@@ -24,22 +24,14 @@
    "reqd": 1
   },
   {
-   "fieldname": "for",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "For",
-   "options": "All\nItem Group\nItem",
-   "reqd": 1
-  },
-  {
-   "depends_on": "eval:doc.for=='Item Group'",
+   "depends_on": "eval:doc.for_item=='Item Group'",
    "fieldname": "item_group",
    "fieldtype": "Link",
    "label": "Item Group",
    "options": "Item Group"
   },
   {
-   "depends_on": "eval:doc.for=='Item'",
+   "depends_on": "eval:doc.for_item=='Item'",
    "fieldname": "item",
    "fieldtype": "Link",
    "label": "Item",
@@ -68,9 +60,17 @@
    "label": "Transaction",
    "options": "Buying\nSelling",
    "reqd": 1
+  },
+  {
+   "fieldname": "for_item",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "For",
+   "options": "All\nItem Group\nItem",
+   "reqd": 1
   }
  ],
- "modified": "2020-01-09 11:17:15.495123",
+ "modified": "2020-07-13 16:08:53.398607",
  "modified_by": "Administrator",
  "module": "Erpnext Retail",
  "name": "Price Based Tax Category Selection",

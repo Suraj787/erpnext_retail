@@ -2,7 +2,6 @@
 	'use strict';
 
 	frappe.provide('frappe.ui.form');
-	console.log('pp');
 
 	frappe.ui.form.CustomerQuickEntryForm = frappe.ui.form.QuickEntryForm.extend({
 		init: function(doctype, after_insert) {
