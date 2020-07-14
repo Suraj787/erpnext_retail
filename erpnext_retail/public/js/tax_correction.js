@@ -1,6 +1,6 @@
 frappe.ui.form.on('Sales Invoice', {
-    validate(frm) {
-        correct_taxes(frm, "Selling", false)
+    async validate(frm) {
+        await correct_taxes(frm, "Selling", false)
     }
 })
 
@@ -61,6 +61,7 @@ async function get_tax_template(price_wise_tax, rate, outstate) {
 }
 
 async function correct_taxes(frm, transaction_type, outstate = false) {
+    console.log("here")
     frappe.dom.freeze()
     let sales_items = frm.doc.items
     let company = frm.doc.company
@@ -97,6 +98,7 @@ async function correct_taxes(frm, transaction_type, outstate = false) {
     }
 
     var additional_discount_percentage = frm.doc.additional_discount_percentage
+    var disscount_apply_on = frm.doc.apply_discount_on
 
     for (let sales_item of sales_items) {
         var item = sales_item.item_code
@@ -104,7 +106,7 @@ async function correct_taxes(frm, transaction_type, outstate = false) {
         var rate = sales_item.rate
         var tax_template
 
-        if (additional_discount_percentage) {
+        if (additional_discount_percentage &&disscount_apply_on == "Grand Total") {
             rate = rate - rate * (additional_discount_percentage / 100)
         }
 
@@ -120,9 +122,11 @@ async function correct_taxes(frm, transaction_type, outstate = false) {
         }
 
         if (tax_template) {
-            frappe.model.set_value(sales_item.doctype, sales_item.name, "item_tax_template", tax_template)
+            await frappe.model.set_value(sales_item.doctype, sales_item.name, "item_tax_template", tax_template)
+            frm.refresh_field("items")
         }
     }
+    frm.refresh_fields()
     frappe.dom.unfreeze()
 }
 
