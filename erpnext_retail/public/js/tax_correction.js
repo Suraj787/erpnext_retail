@@ -16,12 +16,12 @@ frappe.ui.form.on('Purchase Invoice', {
         }
 
         if (!bypass_gst_comparition) {
-			var supplier_gst_location = supplier_gstin.substr(0, 2)
-			var our_gst_location = place_of_supply.substr(0, 2)
+            var supplier_gst_location = supplier_gstin.substr(0, 2)
+            var our_gst_location = place_of_supply.substr(0, 2)
 
             if (supplier_gst_location != our_gst_location) {
                 outstate = true
-			}
+            }
         }
         await correct_taxes(frm, "Buying", outstate)
     }
@@ -47,7 +47,7 @@ async function get_tax_template(price_wise_tax, rate, outstate) {
     let price_rules = price_wise_tax_object.rule
 
     for (let price_rule of price_rules) {
-        if((outstate && price_rule.place != "Outstate") || (!outstate && price_rule.place != "Instate")){
+        if ((outstate && price_rule.place != "Outstate") || (!outstate && price_rule.place != "Instate")) {
             continue
         }
 
@@ -96,11 +96,17 @@ async function correct_taxes(frm, transaction_type, outstate = false) {
         }
     }
 
+    var additional_discount_percentage = frm.doc.additional_discount_percentage
+
     for (let sales_item of sales_items) {
         var item = sales_item.item_code
         var item_group = sales_item.item_group
         var rate = sales_item.rate
         var tax_template
+
+        if (additional_discount_percentage) {
+            rate = rate - rate * (additional_discount_percentage / 100)
+        }
 
         //Check for Item
         if ("Item" in price_wise_tax_mapping && item in price_wise_tax_mapping["Item"]) {
