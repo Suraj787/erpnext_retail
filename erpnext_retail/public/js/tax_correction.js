@@ -107,11 +107,11 @@ async function correct_taxes(frm, transaction_type, outstate = false) {
         var rate = sales_item.rate
         var tax_template
 
-        if (discont_amount && disscount_apply_on == "Grand Total") {
+        if (discont_amount) {
             additional_discount_percentage = (discont_amount * 100) / frm.doc.total
         }
 
-        if (additional_discount_percentage && disscount_apply_on == "Grand Total") {
+        if (additional_discount_percentage) {
             rate = rate - rate * (additional_discount_percentage / 100)
         }
 
