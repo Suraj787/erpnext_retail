@@ -27,6 +27,7 @@ def make_payment_request(doc):
         pr_doc.message = gateway_account.get("message") 
         pr_doc.save()
         pr_doc.submit()
+        
         return pr_doc.name
     else:
         frappe.msgprint("Payment Request already exist.")

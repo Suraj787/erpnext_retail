@@ -84,13 +84,16 @@ doctype_js = {
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
+doc_events = {
+     "Payment Request":{
+           "on_submit":"erpnext_retail.erpnext_retail.custom_script.payment_request.on_submit"
+     },
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
 # 		"on_trash": "method"
 #	}
-# }
+}
 
 # Scheduled Tasks
 # ---------------
