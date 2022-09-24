@@ -298,7 +298,15 @@ frappe.ui.form.on('Purchase Invoice', {
 							}
 							var child_table = frappe.model.add_child(cur_frm.doc, "Barcode Print Items", "items")
 							frappe.model.set_value(child_table.doctype, child_table.name, 'item', pi_item.item_code)
+							frappe.model.set_value(child_table.doctype, child_table.name, 'item_name', pi_item.item_name)
 							frappe.model.set_value(child_table.doctype, child_table.name, 'number_of_print', pi_item.received_qty)
+						    frappe.model.set_value(child_table.doctype, child_table.name, 'rate', pi_item.rate)
+						    frappe.model.set_value(child_table.doctype, child_table.name, 'company', company)
+						    frappe.db.get_value('Item',{'name' :pi_item.item_code}, 'size',(r) =>{
+						        frappe.model.set_value(child_table.doctype, child_table.name, 'size', r.size)
+						    
+						    })
+						    
 						}
 
 						cur_frm.set_value('total_items', cur_frm.doc.items.length)
