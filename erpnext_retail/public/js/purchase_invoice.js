@@ -286,7 +286,7 @@ frappe.ui.form.on('Purchase Invoice', {
 				console.log("pi_items", pi_items, "company",company)
 				frappe.new_doc('Item Barcode Print')
 					.then(function () {
-						frappe.dom.freeze('Loading Please Wait')
+						// frappe.dom.freeze('Loading Please Wait')
 						cur_frm.set_value('company', company)
 
 						if (cur_frm.doc.items.length > 0) {
