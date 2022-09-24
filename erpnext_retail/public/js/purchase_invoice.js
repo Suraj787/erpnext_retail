@@ -14,12 +14,10 @@ function update_item_edit_table(sell_rate, purchase_rate) {
 function update_prices(d) {
 	var purchase_rate = d.fields_dict.rate.get_value()
 	var sell_rate = d.fields_dict.sell_rate.get_value()
-    console.log("!!!! purchase_rate", purchase_rate, "sell_rate", sell_rate)
 	update_item_edit_table(sell_rate, purchase_rate)
 }
 
 function caluclate_selling_price(d) {
-	console.log("@@@caluclate_selling_price", d)
 	var purchase_rate = d.fields_dict.rate.get_value()
 	var percent = d.fields_dict.percent.get_value()
 	if ((purchase_rate <= 0)) {
@@ -30,7 +28,6 @@ function caluclate_selling_price(d) {
 }
 
 function get_final_item_values(d, company) {
-	console.log("333 get_final_item_values",d)
 	var item_attribute = d.fields_dict.item_attribute_select.get_value()
 	var item_name = d.fields_dict.item_name.get_value()
 	var item_group = d.fields_dict.item_group.get_value()
@@ -78,7 +75,6 @@ function get_final_item_values(d, company) {
 }
 
 function create_item_edit_table(purchase_rate, item_attribute_values, html_wrapper) {
-	console.log("DDDcreate_item_edit_table",purchase_rate)
 	html_wrapper.html('<table id="items_edit" style="width:100%"><col width=30%><col width=25%><col width=25%><col width=20%><thead><tr><th>Attribute</th><th style="text-align:right">Pr. Rate</th><th style="text-align:right">Sell Rate</th><th style="text-align:right">Qty</th></tr></thead><tbody id="items_edit_body"></tbody></table>')
 	var items_edit_table = $('#items_edit_body')[0]
 	if (items_edit_table) {
@@ -283,7 +279,6 @@ frappe.ui.form.on('Purchase Invoice', {
 			frm.add_custom_button('Print Barcodes', function () {
 				var pi_items = frm.doc.items
 				var company = frm.doc.company
-				console.log("pi_items", pi_items, "company",company)
 				frappe.new_doc('Item Barcode Print')
 					.then(function () {
 						// frappe.dom.freeze('Loading Please Wait')
@@ -299,11 +294,9 @@ frappe.ui.form.on('Purchase Invoice', {
 
 						for (var pi_item of pi_items) {
 							if(pi_item.item_group == 'TRANSPORT EXP') {
-								console.log("@@@ item_group== 'TRANSPORT EXP'")
 								continue
 							}
 							var child_table = frappe.model.add_child(cur_frm.doc, "Barcode Print Items", "items")
-							console.log("child_table",child_table)
 							frappe.model.set_value(child_table.doctype, child_table.name, 'item', pi_item.item_code)
 							frappe.model.set_value(child_table.doctype, child_table.name, 'number_of_print', pi_item.received_qty)
 						}
