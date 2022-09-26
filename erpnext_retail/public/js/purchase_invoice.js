@@ -300,11 +300,11 @@ frappe.ui.form.on('Purchase Invoice', {
 							frappe.model.set_value(child_table.doctype, child_table.name, 'item', pi_item.item_code)
 							frappe.model.set_value(child_table.doctype, child_table.name, 'item_name', pi_item.item_name)
 							frappe.model.set_value(child_table.doctype, child_table.name, 'number_of_print', pi_item.received_qty)
-						    frappe.model.set_value(child_table.doctype, child_table.name, 'rate', pi_item.rate)
 						    frappe.model.set_value(child_table.doctype, child_table.name, 'company', company)
-						    frappe.db.get_value('Item',{'name' :pi_item.item_code}, 'size',(r) =>{
+						    frappe.db.get_value('Item',{'name' :pi_item.item_code}, ['size','standard_rate'],(r) =>{
 						        frappe.model.set_value(child_table.doctype, child_table.name, 'size', r.size)
-						    
+						    	frappe.model.set_value(child_table.doctype, child_table.name, 'rate', r.standard_rate)
+
 						    })
 						    
 						}
