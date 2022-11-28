@@ -31,8 +31,7 @@ page_js = {"point-of-sale": "public/js/point_of_sale.js"}
 doctype_js = {
         "Purchase Invoice": ["public/js/purchase_invoice.js", "public/js/tax_correction.js"],
         "Sales Invoice": ["public/js/tax_correction.js", "public/js/sales_invoice.js"],
-        "Sales Order": "public/js/sales_order.js",
-        "Payment Request": "public/js/payment_request.js"
+        "Sales Order": "public/js/sales_order.js"
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -87,9 +86,9 @@ doctype_js = {
 # Hook on document methods and events
 
 doc_events = {
-     #"Payment Request":{
-      #     "on_submit":"erpnext_retail.erpnext_retail.custom_script.payment_request.on_submit"
-     #},
+     "Payment Request":{
+          "on_update_after_submit":"erpnext_retail.erpnext_retail.custom_script.payment_request.on_update_after_submit"
+     },
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
