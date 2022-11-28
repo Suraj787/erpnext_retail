@@ -1,0 +1,144 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "LIVSC.-.####",
+ "creation": "2022-11-23 12:25:20.572277",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "posting_date",
+  "conducted_by",
+  "schedule_date",
+  "column_break_4",
+  "duration",
+  "number_of_articles",
+  "live_items_section",
+  "live_items",
+  "section_break_7",
+  "session_description",
+  "session_analytics_section",
+  "no_of_likes",
+  "column_break_11",
+  "no_of_views",
+  "post_session_notes_section",
+  "notes"
+ ],
+ "fields": [
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date"
+  },
+  {
+   "fieldname": "conducted_by",
+   "fieldtype": "Link",
+   "label": "Conducted By",
+   "options": "User"
+  },
+  {
+   "fieldname": "schedule_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Schedule Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "description": "in Hours",
+   "fieldname": "duration",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Duration"
+  },
+  {
+   "fieldname": "number_of_articles",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Number of Articles"
+  },
+  {
+   "fieldname": "live_items_section",
+   "fieldtype": "Section Break",
+   "label": "Live Items"
+  },
+  {
+   "fieldname": "live_items",
+   "fieldtype": "Table",
+   "label": "Live Items",
+   "options": "Live Items"
+  },
+  {
+   "fieldname": "session_analytics_section",
+   "fieldtype": "Section Break",
+   "label": "Session Analytics"
+  },
+  {
+   "fieldname": "no_of_likes",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No of Likes"
+  },
+  {
+   "fieldname": "column_break_11",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "no_of_views",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "No of Views"
+  },
+  {
+   "fieldname": "section_break_7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "session_description",
+   "fieldtype": "Text Editor",
+   "label": "Session Description"
+  },
+  {
+   "fieldname": "post_session_notes_section",
+   "fieldtype": "Section Break",
+   "label": "Post session Notes"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2022-11-23 12:51:25.232499",
+ "modified_by": "Administrator",
+ "module": "Erpnext Retail",
+ "name": "Live Schedule",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "session_description, schedule_date,conducted_by",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
