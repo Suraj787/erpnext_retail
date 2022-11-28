@@ -87,7 +87,7 @@ doctype_js = {
 
 doc_events = {
      "Payment Request":{
-          "on_update_after_submit":"erpnext_retail.erpnext_retail.custom_script.payment_request.on_update_after_submit"
+          "on_change":"erpnext_retail.erpnext_retail.custom_script.payment_request.on_change"
      },
 # 	"*": {
 # 		"on_update": "method",
