@@ -18,7 +18,7 @@ def make_payment_request(doc):
         pr_doc.reference_doctype = "Sales Order"
         pr_doc.reference_name = doc.get('name')
         pr_doc.currency= doc.get('currency')
-        pr_doc.contact_mobile= doc.get('contact_mobile')
+        pr_doc.contact_mobile= doc.get('contact_phone')
         pr_doc.grand_total = doc.get('base_rounded_total')
         pr_doc.payment_gateway_account = gateway_account.get("name")
         pr_doc.payment_gateway = gateway_account.get("payment_gateway")
