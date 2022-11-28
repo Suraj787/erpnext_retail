@@ -9,7 +9,7 @@ def on_submit(doc,method):
             where name = '{1}'""".format(doc.payment_url,doc.reference_name))
         frappe.db.commit()
  
-def on_update_after_submit(doc,method):
+def on_change(doc,method):
     if doc.status == "Paid":
         sales_order = frappe.get_doc("Sales Order",doc.reference_name)
         si = frappe.new_doc("Sales Invoice")
