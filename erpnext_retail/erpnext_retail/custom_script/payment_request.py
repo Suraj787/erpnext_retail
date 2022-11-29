@@ -13,7 +13,7 @@ def on_change(doc,method):
     try:
         if doc.status == "Paid":
             sales_order = frappe.get_doc("Sales Order",doc.reference_name)
-	    ref_name=frappe.db.sql(f""" select a.name,a.remarks,p.total_amount,p.allocated_amount from `tabPayment Entry` as a inner join `tabPayment Entry Reference` as p on p.parent=a.name where p.reference_name='{doc.reference_name}'""",as_dict=1)
+            ref_name=frappe.db.sql(f""" select a.name,a.remarks,p.total_amount,p.allocated_amount from `tabPayment Entry` as a inner join `tabPayment Entry Reference` as p on p.parent=a.name where p.reference_name='{doc.reference_name}'""",as_dict=1)
            
             si = frappe.new_doc("Sales Invoice")
             si.customer = sales_order.customer
@@ -31,7 +31,7 @@ def on_change(doc,method):
                         'rate':i.rate,
                         'amount':i.amount                                                        
                         })
-	   for ref in ref_name:
+            for ref in ref_name:
                 si.append("advances",{
                         'reference_type':"Payment Entry",
                         'reference_name':str(ref.name),
@@ -44,7 +44,7 @@ def on_change(doc,method):
             frappe.msgprint("Create Sales Invoice")
     except Exception as e:
         frappe.log_error(
-			title=_("Error while processing payment request for {0}").format(doc.name),
-			message=frappe.get_traceback(),
-		)
+                        title=_("Error while processing payment request for {0}").format(doc.name),
+                        message=frappe.get_traceback(),
+                )
 
