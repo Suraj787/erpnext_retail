@@ -13,38 +13,44 @@ def on_change(doc,method):
     try:
         if doc.status == "Paid":
             sales_order = frappe.get_doc("Sales Order",doc.reference_name)
-	    ref_name=frappe.db.sql(f""" select a.name,a.remarks,p.total_amount,p.allocated_amount from `tabPayment Entry` as a inner join `tabPayment Entry Reference` as p on p.parent=a.name where p.reference_name='{doc.reference_name}'""",as_dict=1)
-           
-            si = frappe.new_doc("Sales Invoice")
-            si.customer = sales_order.customer
-            si.posting_date = sales_order.transaction_date
-            for i in sales_order.items:
-                
-                si.append("items",{
-                        'item_code':i.item_code,
-                        'item_name':i.item_name,
-                        'description':i.description,
-                        'uom':i.uom,
-                        'qty':i.qty,
-                        'conversion_factor':"1",
-                        'warehouse':i.warehouse,
-                        'rate':i.rate,
-                        'amount':i.amount                                                        
-                        })
-	   for ref in ref_name:
-                si.append("advances",{
-                        'reference_type':"Payment Entry",
-                        'reference_name':str(ref.name),
-                        'remarks':str(ref.remarks),
-                        'advance_amount':str(ref.total_amount),
-                        'allocated_amount':str(ref.allocated_amount),                           
-                    }) 
-            si.insert(ignore_permissions=True)
-            si.submit() 
-            frappe.msgprint("Create Sales Invoice")
+            ref_name=frappe.db.sql(f""" select p.idx,p.reference_doctype,a.name,a.remarks,p.total_amount,p.allocated_amount from `tabPayment Entry` as a inner join `tabPayment Entry Reference` as p on p.parent=a.name where p.reference_name='{doc.reference_name}' and p.idx<=1""",as_dict=1)
+            for r in ref_name:
+                if str(r.idx) == "1" and str(r.reference_doctype) == "Sales Order":   
+                    si = frappe.new_doc("Sales Invoice")
+                    si.customer = sales_order.customer
+                    si.posting_date = sales_order.transaction_date
+                    si.status = "Paid"
+                    for i in sales_order.items:
+                        
+                        si.append("items",{
+                                'item_code':i.item_code,
+                                'item_name':i.item_name,
+                                'description':i.description,
+                                'uom':i.uom,
+                                'qty':i.qty,
+                                'conversion_factor':"1",
+                                'warehouse':i.warehouse,
+                                'rate':i.rate,
+                                'amount':i.amount
+
+                                                                
+                            })
+                    
+                    for ref in ref_name:
+                        si.append("advances",{
+                                'reference_type':"Payment Entry",
+                                'reference_name':str(ref.name),
+                                'remarks':str(ref.remarks),
+                                'advance_amount':str(ref.total_amount),
+                                'allocated_amount':str(ref.allocated_amount),                           
+                            })    
+                        
+                        
+                    si.insert(ignore_permissions=True)
+                    si.submit() 
+                    frappe.msgprint("Create Sales Invoice")
     except Exception as e:
         frappe.log_error(
-			title=_("Error while processing payment request for {0}").format(doc.name),
+			title=("Error while processing payment request for {0}").format(doc.name),
 			message=frappe.get_traceback(),
 		)
-
