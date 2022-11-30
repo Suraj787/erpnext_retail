@@ -89,6 +89,9 @@ doc_events = {
      "Payment Request":{
           "on_change":"erpnext_retail.erpnext_retail.custom_script.payment_request.on_change"
      },
+        "Delivery Note":{
+          "on_submit":"erpnext_retail.erpnext_retail.custom_script.delivery_note.on_submit"
+     },
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
