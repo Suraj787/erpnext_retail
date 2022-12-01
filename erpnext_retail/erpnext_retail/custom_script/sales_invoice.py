@@ -14,6 +14,7 @@ def make_payment_request(doc):
         pr_doc.transaction_date = getdate(today())
         pr_doc.party_type = "Customer"
         pr_doc.party = doc.get("customer")
+        pr_doc.customer_name = frappe.db.get_value("Customer",doc.get("customer"),"customer_name")
         pr_doc.reference_doctype = "Sales Invoice"
         pr_doc.reference_name = doc.get('name')
         pr_doc.currency= doc.get('currency')
@@ -27,7 +28,7 @@ def make_payment_request(doc):
         pr_doc.message = gateway_account.get("message") 
         pr_doc.save()
         pr_doc.submit()
-
+        frappe.msgprint(frappe.db.get_value("Customer",doc.get("customer"),"customer_name"))
         return pr_doc.name
     else:
         frappe.msgprint("Payment Request already exist.")
