@@ -10,6 +10,22 @@ def on_submit(doc,method):
 		frappe.db.sql("""update `tabSales Invoice` set payment_request_url = '{0}'
 			where name = '{1}'""".format(doc.payment_url,doc.reference_name))
 		frappe.db.commit()
+		
+def after_insert(doc,method):
+    if doc.party:
+        add = frappe.db.sql("select a.address_line1,a.address_line2,a.city,a.state,a.pincode,a.country from `tabAddress` a LEFT JOIN `tabDynamic Link` dl on dl.parent = a.name LEFT JOIN `tabCustomer` c on dl.link_name = c.name where dl.link_name=%s",doc.party)
+        add = str(add)
+        add=add.replace("(","")
+        add=add.replace(")","")
+        add=add.replace("'","")
+        # frappe.msgprint(str(add))
+        customer_address = frappe.new_doc('Customer and Shiping Details')
+        customer_address.customer = doc.party
+        customer_address.payment_request = doc.name
+        customer_address.address = add
+        customer_address.insert()
+        customer_address.save()
+        frappe.msgprint("Customer Address Create")		
 
 def on_change(doc,method):
 	try:
