@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_guest_to_view": 1,
  "allow_rename": 1,
  "autoname": "field:customer",
  "creation": "2022-11-29 19:45:46.350856",
@@ -8,11 +9,11 @@
  "engine": "InnoDB",
  "field_order": [
   "customer",
-  "address",
-  "second_address",
-  "third_address",
-  "fourth_address",
-  "fifth_address",
+  "address_1",
+  "address_2",
+  "address_3",
+  "address_4",
+  "address_5",
   "column_break_4",
   "payment_request",
   "address_check",
@@ -22,12 +23,17 @@
   "fifth_address_check",
   "section_break_10",
   "address_title",
-  "new_address",
+  "address_line_1",
+  "address_line2",
   "city",
   "state",
   "column_break_17",
   "pin_code",
-  "country"
+  "country",
+  "section_break_23",
+  "payment_url",
+  "route",
+  "published"
  ],
  "fields": [
   {
@@ -39,39 +45,8 @@
    "unique": 1
   },
   {
-   "fieldname": "address",
-   "fieldtype": "Data",
-   "label": "Address"
-  },
-  {
-   "fieldname": "second_address",
-   "fieldtype": "Data",
-   "label": "Second Address"
-  },
-  {
    "fieldname": "column_break_4",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "third_address",
-   "fieldtype": "Date",
-   "label": "Third Address"
-  },
-  {
-   "fieldname": "fourth_address",
-   "fieldtype": "Data",
-   "label": "Fourth Address"
-  },
-  {
-   "fieldname": "fifth_address",
-   "fieldtype": "Data",
-   "label": "Fifth Address"
-  },
-  {
-   "fieldname": "new_address",
-   "fieldtype": "Data",
-   "hidden": 1,
-   "label": "New Address"
   },
   {
    "fieldname": "city",
@@ -111,8 +86,7 @@
   },
   {
    "fieldname": "section_break_10",
-   "fieldtype": "Section Break",
-   "hidden": 1
+   "fieldtype": "Section Break"
   },
   {
    "default": "0",
@@ -147,11 +121,68 @@
    "fieldtype": "Link",
    "label": "Payment Request",
    "options": "Payment Request"
+  },
+  {
+   "fieldname": "address_line_1",
+   "fieldtype": "Data",
+   "label": "address Line 1"
+  },
+  {
+   "fieldname": "address_line2",
+   "fieldtype": "Data",
+   "label": "Address Line2"
+  },
+  {
+   "fieldname": "address_1",
+   "fieldtype": "Small Text",
+   "label": "Address 1"
+  },
+  {
+   "fieldname": "address_2",
+   "fieldtype": "Small Text",
+   "label": "Address 2"
+  },
+  {
+   "fieldname": "address_3",
+   "fieldtype": "Small Text",
+   "label": "Address 3"
+  },
+  {
+   "fieldname": "address_4",
+   "fieldtype": "Small Text",
+   "label": "Address 4"
+  },
+  {
+   "fieldname": "address_5",
+   "fieldtype": "Small Text",
+   "label": "Address 5"
+  },
+  {
+   "fieldname": "section_break_23",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "payment_url",
+   "fieldtype": "Data",
+   "label": "Payment URL"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "route"
+  },
+  {
+   "default": "0",
+   "fieldname": "published",
+   "fieldtype": "Check",
+   "label": "published"
   }
  ],
+ "has_web_view": 1,
  "index_web_pages_for_search": 1,
+ "is_published_field": "published",
  "links": [],
- "modified": "2022-12-02 20:26:34.585896",
+ "modified": "2022-12-03 19:54:35.684140",
  "modified_by": "Administrator",
  "module": "Erpnext Retail",
  "name": "Customer and Shiping Details",
@@ -170,6 +201,10 @@
    "write": 1
   }
  ],
+ "route": "shipping",
  "sort_field": "modified",
- "sort_order": "DESC"
+ "sort_order": "DESC",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
 }

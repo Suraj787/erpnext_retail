@@ -48,7 +48,10 @@ def on_change(doc,method):
 			#         }) 
 			si.set_advances()
 			# frappe.log_error(si.get("advances"))
-			si.submit() 
+			si.submit()
+			frappe.db.set_value("Sales Order",sales_order.name,"per_billed",100)
+			frappe.db.set_value("Sales Order",sales_order.name,"status","To Deliver")
+			frappe.db.commit()
 			frappe.msgprint("Create Sales Invoice")
 	except Exception as e:
 		frappe.log_error(
