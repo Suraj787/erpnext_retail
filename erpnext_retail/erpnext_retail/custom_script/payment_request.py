@@ -34,6 +34,9 @@ def on_change(doc,method):
 						'amount':i.amount  ,
 						"sales_order":sales_order.name                                               
 						})
+			si.taxes_and_charges=sales_order.taxes_and_charges
+			if sales_order.taxes_and_charges and not len(si.get("taxes")):
+				si.set_taxes()
 			
 			si.insert(ignore_permissions=True)
 			
