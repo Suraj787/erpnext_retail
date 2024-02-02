@@ -80,7 +80,7 @@ async function correct_taxes(frm, transaction_type, outstate = false) {
         filters: { "company": frm.doc.company, "transaction": transaction_type }
     })
 
-    // console.log(price_wise_taxes, "price_wise_taxes======")
+    
     var price_wise_tax_mapping = {}
 
     for (var price_wise_tax of price_wise_taxes) {
