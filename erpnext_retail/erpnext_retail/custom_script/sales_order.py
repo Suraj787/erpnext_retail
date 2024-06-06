@@ -5,7 +5,7 @@ from frappe.utils import getdate, today,flt
 
 @frappe.whitelist()
 def make_payment_request(doc):
-    frappe.log_error("test")
+    # frappe.log_error("test")
     doc = json.loads(doc)
     if not check_duplicate_payment_request(doc):
         gateway_account = frappe.db.get_value("Payment Gateway Account", {'is_default':1},

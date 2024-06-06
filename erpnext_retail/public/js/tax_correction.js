@@ -1,6 +1,34 @@
 frappe.ui.form.on('Sales Invoice', {
     async validate(frm) {
-        await correct_taxes(frm, "Selling", false)
+        console.log("Ccccc")
+        if(frm.doc.place_of_supply != "27-Maharashtra"){
+
+            var outstate = true
+        }else{
+            var outstate = false
+        }
+        await correct_taxes(frm, "Selling", outstate)
+    },
+
+    // async on_submit(frm) {
+    //     console.log("vvvvvv")
+    //     await correct_taxes(frm, "Selling", false)
+    // }
+})
+
+frappe.ui.form.on('Sales Order', {
+    async validate(frm) {
+        console.log("Ddddd")
+        if(frm.doc.place_of_supply != "27-Maharashtra"){
+
+            var outstate = true
+
+        }else{
+
+            var outstate = false
+        }
+
+        await correct_taxes(frm, "Selling", outstate)
     }
 })
 
@@ -71,6 +99,8 @@ async function correct_taxes(frm, transaction_type, outstate = false) {
         limit: 1000,
         filters: { "company": frm.doc.company, "transaction": transaction_type }
     })
+
+    
     var price_wise_tax_mapping = {}
 
     for (var price_wise_tax of price_wise_taxes) {
@@ -127,6 +157,7 @@ async function correct_taxes(frm, transaction_type, outstate = false) {
         }
 
         if (tax_template) {
+            console.log(tax_template,"on-----")
             await frappe.model.set_value(sales_item.doctype, sales_item.name, "item_tax_template", tax_template)
             frm.refresh_field("items")
         }

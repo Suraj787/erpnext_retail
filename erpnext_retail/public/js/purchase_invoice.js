@@ -152,6 +152,7 @@ function open_item_helper(frm) {
 		return
 	}
 
+	console.log("call in 11111111111")
 	frappe.dom.freeze()
 	frappe.db.get_list('Item Attribute')
 		.then(function (item_attributes) {
@@ -160,31 +161,34 @@ function open_item_helper(frm) {
 			for (var item_attribute of item_attributes) {
 				item_attribute_select_options.push(item_attribute.name)
 			}
+
+			console.log(item_attribute_select_options, "call in 22222222222222")
 			var d = new frappe.ui.Dialog({
-				'fields': [
+				fields: [
 					{ 'fieldname': 'item_name', 'fieldtype': 'Data', 'options': '', "label": "New Item", reqd: 1 },
 					{ 'fieldname': 'article', 'fieldtype': 'Data', 'options': '', "label": "Article", reqd: 1 },
 					{ 'fieldname': 'item_group', 'fieldtype': 'Link', 'options': 'Item Group', "label": "Item Group", reqd: 1 },
 					{ 'fieldname': 'brand', 'fieldtype': 'Link', 'options': 'Brand', "label": "Brand" },
-					{ 'fieldname': 'col1', 'fieldtype': 'Column Break', 'options': '', reqd: 1 },
+					{ 'fieldname': 'col1', 'fieldtype': 'Column Break', 'options': '',  },
 					{ 'fieldname': 'hsn', 'fieldtype': 'Link', 'options': 'GST HSN Code', "label": "HSN"},
 					{ 'fieldname': 'rate', 'fieldtype': 'Currency', 'options': '', "label": "Purchase Rate", reqd: 1 },
 					{ 'fieldname': 'percent', 'fieldtype': 'Float', 'options': '', "label": "Add Margin (%)" },
 					{ 'fieldname': 'sell_rate', 'fieldtype': 'Currency', 'options': '', "label": "Selling Rate", reqd: 1 },
-					{ 'fieldname': 'sec1', 'fieldtype': 'Section Break', 'options': '', "label": "Size", reqd: 1 },
+					{ 'fieldname': 'sec1', 'fieldtype': 'Section Break', 'options': '', "label": "Size" },
 					{ 'fieldname': 'item_attribute_select', 'fieldtype': 'Select', 'options': item_attribute_select_options, "label": "Select Size", reqd: 1 },
 					{ 'fieldname': 'is_numeric', 'fieldtype': 'Data', 'default': 0, hidden: 1 },
-					{ 'fieldname': 'from_size', 'fieldtype': 'Int', 'options': '', "label": "From Size", depends_on: 'eval:doc.is_numeric==1' },
+					{ 'fieldname': 'from_size', 'fieldtype': 'Int', 'options': '', "label": "From Size", depends_on: "eval:doc.is_numeric==1" },
 					{ 'fieldname': 'to_size', 'fieldtype': 'Int', 'options': '', "label": "To Size", depends_on: 'eval:doc.is_numeric==1' },
-					{ 'fieldname': 'col2', 'fieldtype': 'Column Break', 'options': '', reqd: 1, hidden: 1 },
+					{ 'fieldname': 'col2', 'fieldtype': 'Column Break', 'options': '', hidden: 1 },
 					{ 'fieldname': 'increment', 'fieldtype': 'Int', 'options': '', "label": "Increment", depends_on: 'eval:doc.is_numeric==1' },
 					{ 'fieldname': 'price_jump', 'fieldtype': 'Currency', 'options': '', "label": "Price Jump", depends_on: 'eval:doc.is_numeric==1' },
 					{ 'fieldname': 'create_num_items', 'fieldtype': 'Button', 'options': '', "label": "Create Items", depends_on: 'eval:doc.is_numeric==1' },
-					{ 'fieldname': 'sec2', 'fieldtype': 'Section Break', 'options': '', "label": "Items", reqd: 1 },
-					{ 'fieldname': 'item_html', 'fieldtype': 'HTML', 'options': '', "label": "" },
+					{ 'fieldname': 'sec2', 'fieldtype': 'Section Break', 'options': '', "label": "" },
+					{ 'fieldname': 'item_html', 'fieldtype': 'HTML', 'options': '', "label": "" }
 				],
 				title: 'Item Helper',
 				primary_action: function () {
+					console.log("call in 333333333")
 					d.set_message('Creating Items')
 					var r = get_final_item_values(d, frm.doc.company)
 					frappe.call({
@@ -216,6 +220,7 @@ function open_item_helper(frm) {
 					})
 				}
 			});
+			
 			d.fields_dict.create_num_items.onclick = () => {
 				var size_price_map = create_numerical_sizes(d)
 				var rate = d.fields_dict.rate.get_value()
@@ -263,7 +268,7 @@ function open_item_helper(frm) {
 		}).catch(function (err) {
 			frappe.msgprint(err)
 			frappe.dom.unfreeze()
-		})
+			})
 
 }
 

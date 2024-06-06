@@ -3,6 +3,103 @@ import json
 from frappe import _
 from frappe.utils import getdate, today,flt
 
+def get_tax_template(price_wise_tax, rate, outstate):
+    to_return = False
+    price_wise_tax_cache = {}
+    
+    price_wise_tax_object = None
+    if price_wise_tax not in price_wise_tax_cache:
+        price_wise_tax_object = frappe.get_doc('Price Based Tax Category Selection', price_wise_tax)
+        price_wise_tax_cache[price_wise_tax] = price_wise_tax_object
+    else:
+        price_wise_tax_object = price_wise_tax_cache[price_wise_tax]
+
+    if not price_wise_tax_object:
+        return False
+   
+    price_rules = price_wise_tax_object.rule
+
+    for price_rule in price_rules:
+        if (outstate and price_rule.place != "Outstate") or (not outstate and price_rule.place != "Instate"):
+            continue
+
+        if rate >= float(price_rule.from_price) and rate <= float(price_rule.to_price):
+            to_return = price_rule.tax_template
+            break
+
+    return to_return
+
+
+def get_item_tax_template(item,invoice_doc):
+    
+    item_obj = frappe._dict(item.as_dict())
+       
+    company = invoice_doc.company
+    price_wise_taxes = frappe.db.get_all('Price Based Tax Category Selection', 
+        {"company": "Kothari Collections", "transaction": "Selling"},
+        ["name", "for_item", "item", "item_group"],limit=1000)
+
+    price_wise_tax_mapping = {}
+
+    for price_wise_tax in price_wise_taxes:
+        for_item = price_wise_tax['for_item']
+        if for_item not in price_wise_tax_mapping:
+            if for_item == "All":
+                price_wise_tax_mapping[for_item] = price_wise_tax['name']
+            else:
+                price_wise_tax_mapping[for_item] = {}
+                if for_item == "Item":
+                    price_wise_tax_mapping[for_item][price_wise_tax['item']] = price_wise_tax['name']
+                if for_item == "Item Group":
+                    price_wise_tax_mapping[for_item][price_wise_tax['item_group']] = price_wise_tax['name']
+        else:
+            if for_item == "Item":
+                price_wise_tax_mapping[for_item][price_wise_tax['item']] = price_wise_tax['name']
+            if for_item == "Item Group":
+                price_wise_tax_mapping[for_item][price_wise_tax['item_group']] = price_wise_tax['name']
+
+    additional_discount_percentage = invoice_doc.additional_discount_percentage
+    disscount_apply_on = invoice_doc.apply_discount_on
+    discont_amount = invoice_doc.discount_amount
+
+    item = item_obj.item_code
+    item_group = item_obj.item_group
+    rate = item_obj.rate
+    tax_template = None
+
+    if discont_amount:
+        additional_discount_percentage = (discont_amount * 100) / invoice_doc.total
+
+    if additional_discount_percentage:
+        rate = rate - rate * (additional_discount_percentage / 100)
+
+    # Check for Item
+    outstate = False
+    if "Item" in price_wise_tax_mapping and item in price_wise_tax_mapping["Item"]:
+        tax_template =  get_tax_template(price_wise_tax_mapping["Item"][item], rate, outstate)
+    elif "Item Group" in price_wise_tax_mapping and item_group in price_wise_tax_mapping["Item Group"]:
+        tax_template =  get_tax_template(price_wise_tax_mapping["Item Group"][item_group], rate, outstate)
+    elif "All" in price_wise_tax_mapping:
+        tax_template =  get_tax_template(price_wise_tax_mapping["All"], rate, outstate)
+
+    if tax_template:
+        return tax_template
+
+    return None
+
+
+def on_submit(doc, method):
+    doc.due_date = getdate(today())
+    if not doc.is_pos:
+        for item in doc.items:
+            if not item.item_tax_template:
+                item.item_tax_template = get_item_tax_template(item,doc)
+
+def validate(doc, method):
+    doc.due_date = getdate(today())
+
+
+
 @frappe.whitelist()
 def make_payment_request(doc):
     doc = json.loads(doc)

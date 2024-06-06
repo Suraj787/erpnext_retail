@@ -31,7 +31,7 @@ page_js = {"point-of-sale": "public/js/point_of_sale.js"}
 doctype_js = {
         "Purchase Invoice": ["public/js/purchase_invoice.js", "public/js/tax_correction.js"],
         "Sales Invoice": ["public/js/tax_correction.js", "public/js/sales_invoice.js"],
-        "Sales Order": "public/js/sales_order.js"
+        "Sales Order": ["public/js/tax_correction.js", "public/js/sales_order.js"]
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -92,6 +92,13 @@ doc_events = {
         "Delivery Note":{
           "on_submit":"erpnext_retail.erpnext_retail.custom_script.delivery_note.on_submit"
      },
+        "Sales Invoice":{
+          "on_submit":"erpnext_retail.erpnext_retail.custom_script.sales_invoice.on_submit"
+     },
+        "Sales Invoice":{
+          "validate":"erpnext_retail.erpnext_retail.custom_script.sales_invoice.validate"
+     },
+     
 # 	"*": {
 # 		"on_update": "method",
 # 		"on_cancel": "method",
